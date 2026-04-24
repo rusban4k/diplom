@@ -1,0 +1,188 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f7fb;
+    color: #212529;
+}
+
+main.container {
+    min-height: 70vh;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 16px;
+}
+
+.hero-box {
+    background: linear-gradient(135deg, #1e2a38, #27374d);
+    color: white;
+}
+
+.info-panel {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+    .info-panel ul {
+        padding-left: 20px;
+    }
+
+table {
+    width: 100%;
+    background-color: white;
+}
+
+    table th,
+    table td {
+        padding: 10px;
+        vertical-align: middle;
+    }
+
+form div {
+    margin-bottom: 15px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.footer {
+    background-color: #ffffff;
+}
+
+
+.analytics-kpi,
+.analytics-mini {
+    border-radius: 14px;
+}
+
+.analytics-kpi .card-body,
+.analytics-mini .card-body {
+    padding: 1.1rem 1.2rem;
+}
+
+.analytics-panel {
+    border-radius: 16px;
+}
+
+.analytics-kpi {
+    border-radius: 16px;
+    color: white;
+}
+
+    .analytics-kpi .card-body {
+        padding: 1.2rem 1.3rem;
+    }
+
+.analytics-kpi-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.analytics-kpi-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.analytics-kpi-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.analytics-kpi-success {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.analytics-kpi-dark {
+    background: linear-gradient(135deg, #334155, #1e293b);
+}
+
+.analytics-kpi-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.analytics-mini-box {
+    background: #f8fafc;
+    border: 1px solid #e9ecef;
+    border-radius: 14px;
+    padding: 16px;
+    height: 100%;
+}
+
+.analytics-mini-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.analytics-mini-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.course-card {
+    border-radius: 14px;
+    transition: transform 0.2s ease;
+}
+
+    .course-card:hover {
+        transform: translateY(-5px);
+    }
+
+.premium-box {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: white;
+    border-radius: 16px;
+}
+
+
+.premium-cta {
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    color: white;
+    border-radius: 14px;
+    padding: 10px 18px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .premium-cta:hover {
+        transform: translateY(-2px);
+        opacity: 0.95;
+        color: white;
+        text-decoration: none;
+    }
+
+.telegram-icon {
+    font-size: 18px;
+}
