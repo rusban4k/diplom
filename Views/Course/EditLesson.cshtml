@@ -1,0 +1,50 @@
+﻿@model diplom.Models.Lesson
+
+@{
+    ViewData["Title"] = "Редактирование урока";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="mb-4">Редактирование урока</h2>
+
+                <form asp-action="EditLesson" asp-controller="Course" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CourseModuleId" />
+
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Название урока</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Body" class="form-label">Содержание урока</label>
+                        <textarea asp-for="Body" class="form-control" rows="10"></textarea>
+                        <span asp-validation-for="Body" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="OrderNumber" class="form-label">Порядковый номер</label>
+                        <input asp-for="OrderNumber" class="form-control" />
+                        <span asp-validation-for="OrderNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="IsPreview" class="form-check-input" />
+                        <label asp-for="IsPreview" class="form-check-label">Preview-урок</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-controller="Course" asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model diplom.Models.CourseModule
+
+@{
+    ViewData["Title"] = "Редактирование модуля";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="mb-4">Редактирование модуля</h2>
+
+                <form asp-action="EditModule" asp-controller="Course" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CourseId" />
+
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Название модуля</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="OrderNumber" class="form-label">Порядковый номер</label>
+                        <input asp-for="OrderNumber" class="form-control" />
+                        <span asp-validation-for="OrderNumber" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

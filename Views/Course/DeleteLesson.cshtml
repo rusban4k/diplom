@@ -1,0 +1,24 @@
+﻿@model diplom.Models.Lesson
+
+@{
+    ViewData["Title"] = "Удаление урока";
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h2 class="mb-3">Удаление урока</h2>
+
+        <p>Вы действительно хотите удалить урок?</p>
+
+        <div class="mb-3">
+            <strong>@Model.Title</strong>
+        </div>
+
+        <form asp-action="DeleteLesson" asp-controller="Course" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a asp-controller="Course" asp-action="Index" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>

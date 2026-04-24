@@ -1,0 +1,40 @@
+﻿@model List<diplom.Models.Content>
+
+@{
+    ViewData["Title"] = "Контент";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Список материалов</h2>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-controller="Content" asp-action="Create">Создать запись</a>
+    }
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Заголовок</th>
+            <th>Описание</th>
+            <th>Дата создания</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.CreatedAt</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary" asp-controller="Content" asp-action="Details" asp-route-id="@item.Id">Открыть</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,27 @@
+﻿@model diplom.Models.Lesson
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="mb-3">
+    <h2>@Model.Title</h2>
+
+    @if (Model.IsPreview)
+    {
+        <span class="badge bg-info text-dark">Preview урок</span>
+    }
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <p style="white-space: pre-line;">@Model.Body</p>
+    </div>
+</div>
+
+<a class="btn btn-secondary mt-3"
+   asp-controller="Course"
+   asp-action="Details"
+   asp-route-id="@Model.CourseModule?.CourseId">
+    Назад к курсу
+</a>

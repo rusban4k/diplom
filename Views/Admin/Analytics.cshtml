@@ -1,0 +1,276 @@
+﻿@model List<diplom.Models.AnalyticsEvent>
+
+@{
+    ViewData["Title"] = "Аналитика";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-1">Аналитика Sonic Legacy</h2>
+        <p class="text-muted mb-0">Панель мониторинга пользовательской активности и premium-конверсии</p>
+    </div>
+</div>
+
+<!-- KPI -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm analytics-kpi analytics-kpi-primary">
+            <div class="card-body">
+                <div class="analytics-kpi-label">Всего событий</div>
+                <div class="analytics-kpi-value">@ViewBag.TotalEvents</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm analytics-kpi analytics-kpi-success">
+            <div class="card-body">
+                <div class="analytics-kpi-label">Регистрации</div>
+                <div class="analytics-kpi-value">@ViewBag.TotalRegistrations</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm analytics-kpi analytics-kpi-dark">
+            <div class="card-body">
+                <div class="analytics-kpi-label">Входы</div>
+                <div class="analytics-kpi-value">@ViewBag.TotalLogins</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm analytics-kpi analytics-kpi-warning">
+            <div class="card-body">
+                <div class="analytics-kpi-label">Выдано Premium</div>
+                <div class="analytics-kpi-value">@ViewBag.TotalPremiumGranted</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Главный график -->
+<div class="card shadow-sm border-0 mb-4 analytics-panel">
+    <div class="card-body">
+        <h4 class="mb-3">Активность на платформе</h4>
+        <canvas id="activityChart" height="100"></canvas>
+    </div>
+</div>
+
+<!-- График по дням + Premium -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 analytics-panel h-100">
+            <div class="card-body">
+                <h4 class="mb-3">Активность за последние 7 дней</h4>
+                <canvas id="dailyChart" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0 analytics-panel h-100">
+            <div class="card-body">
+                <h4 class="mb-3">Premium-операции</h4>
+                <canvas id="premiumChart" height="220"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Дополнительные графики -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-0 analytics-panel h-100">
+            <div class="card-body">
+                <h4 class="mb-3">Пользовательские действия</h4>
+                <canvas id="authChart" height="160"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-0 analytics-panel h-100">
+            <div class="card-body">
+                <h4 class="mb-3">Сводка контента</h4>
+
+                <div class="row g-3 mt-1">
+                    <div class="col-md-4">
+                        <div class="analytics-mini-box">
+                            <div class="analytics-mini-label">Курсы</div>
+                            <div class="analytics-mini-value">@ViewBag.TotalCoursesCreated</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="analytics-mini-box">
+                            <div class="analytics-mini-label">Модули</div>
+                            <div class="analytics-mini-value">@ViewBag.TotalModulesCreated</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="analytics-mini-box">
+                            <div class="analytics-mini-label">Уроки</div>
+                            <div class="analytics-mini-value">@ViewBag.TotalLessonsCreated</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="analytics-mini-box">
+                            <div class="analytics-mini-label">Выходы</div>
+                            <div class="analytics-mini-value">@ViewBag.TotalLogouts</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="analytics-mini-box">
+                            <div class="analytics-mini-label">Premium denied</div>
+                            <div class="analytics-mini-value text-danger">@ViewBag.TotalPremiumBlocked</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="analytics-mini-box">
+                            <div class="analytics-mini-label">Снято Premium</div>
+                            <div class="analytics-mini-value">@ViewBag.TotalPremiumRevoked</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Таблица -->
+<div class="card shadow-sm border-0 analytics-panel">
+    <div class="card-body">
+        <h4 class="mb-3">Последние аналитические события</h4>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Тип события</th>
+                        <th>Страница</th>
+                        <th>UserId</th>
+                        <th>Дата</th>
+                        <th>IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.EventType</td>
+                            <td>@item.Page</td>
+                            <td>@item.UserId</td>
+                            <td>@item.Timestamp</td>
+                            <td>@item.IpAddress</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const activityCtx = document.getElementById('activityChart');
+        new Chart(activityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Список курсов', 'Курсы', 'Уроки', 'Premium denied'],
+                datasets: [{
+                    label: 'События',
+                    data: [
+                        @ViewBag.ChartCourseListViews,
+                        @ViewBag.ChartCourseViews,
+                        @ViewBag.ChartLessonViews,
+                        @ViewBag.ChartPremiumBlocked
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        const dailyCtx = document.getElementById('dailyChart');
+        new Chart(dailyCtx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(ViewBag.DailyLabels),
+                datasets: [{
+                    label: 'События по дням',
+                    data: @Html.Raw(ViewBag.DailyCounts),
+                    tension: 0.35,
+                    fill: false,
+                    borderWidth: 3,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        const authCtx = document.getElementById('authChart');
+        new Chart(authCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Регистрации', 'Входы', 'Выходы'],
+                datasets: [{
+                    label: 'Пользовательские действия',
+                    data: [
+                        @ViewBag.ChartRegistrations,
+                        @ViewBag.ChartLogins,
+                        @ViewBag.ChartLogouts
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        const premiumCtx = document.getElementById('premiumChart');
+        new Chart(premiumCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Выдано Premium', 'Снято Premium'],
+                datasets: [{
+                    data: [
+                        @ViewBag.ChartPremiumGranted,
+                        @ViewBag.ChartPremiumRevoked
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+}

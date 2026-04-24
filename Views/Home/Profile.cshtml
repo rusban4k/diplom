@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Профиль";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h2 class="mb-3">Профиль пользователя</h2>
+
+                <div class="mb-3">
+                    <strong>Email:</strong> @User.Identity?.Name
+                </div>
+
+                <div class="mb-3">
+                    <strong>Роль:</strong>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span class="badge bg-danger">Admin</span>
+                    }
+                    else if (User.IsInRole("Premium"))
+                    {
+                        <span class="badge bg-warning text-dark">Premium</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">User</span>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <strong>Статус доступа:</strong>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <span class="text-danger">Полный доступ администратора</span>
+                    }
+                    else if (User.IsInRole("Premium"))
+                    {
+                        <span class="text-success">Расширенный доступ (Premium)</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Только базовый доступ</span>
+                    }
+                </div>
+
+                <a class="btn btn-primary" asp-controller="Course" asp-action="Index">
+                    Перейти к курсам
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!User.IsInRole("Premium") && !User.IsInRole("Admin"))
+{
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-body p-4">
+
+            <h4 class="mb-2">Получить Premium</h4>
+
+            <p class="text-muted mb-3">
+                Откройте доступ к расширенным курсам и дополнительным материалам.
+            </p>
+
+            <a class="premium-cta"
+               href="https://vk.com/rusban4k"
+               target="_blank">
+
+                <span class="telegram-icon">📩</span>
+                Запросить Premium
+            </a>
+
+        </div>
+    </div>
+}

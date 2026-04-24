@@ -1,0 +1,53 @@
+﻿@model diplom.Models.Course
+
+@{
+    ViewData["Title"] = "Создание курса";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="mb-4">Создание курса</h2>
+
+                <form asp-action="Create" asp-controller="Course" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Название курса</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Описание курса</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PreviewText" class="form-label">Краткий текст / превью</label>
+                        <textarea asp-for="PreviewText" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="PreviewText" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="IsPremium" class="form-check-input" />
+                        <label asp-for="IsPremium" class="form-check-label">Премиум-курс</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сохранить курс</button>
+                    <a asp-controller="Course" asp-action="Index" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

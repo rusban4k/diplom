@@ -1,0 +1,125 @@
+﻿@model List<diplom.Models.User>
+
+@{
+    ViewData["Title"] = "Пользователи";
+}
+
+<h2 class="mb-4">Управление пользователями</h2>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Роль</th>
+                        <th>Активен</th>
+                        <th>Заблокирован</th>
+                        <th>Premium</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+
+                            <td>@user.Id</td>
+
+                            <td>@user.Email</td>
+
+                            <td>
+                                @if (user.Role == "Admin")
+                                {
+                                    <span class="badge bg-danger">Admin</span>
+                                }
+                                else if (user.Role == "Premium")
+                                {
+                                    <span class="badge bg-warning text-dark">Premium</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">User</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (user.IsActive)
+                                {
+                                    <span class="badge bg-success">Активен</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Не активен</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (user.IsBlocked)
+                                {
+                                    <span class="badge bg-danger">Заблокирован</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Активен</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (user.Role == "Premium")
+                                {
+                                    <span class="badge bg-warning text-dark">Есть</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-light text-dark">Нет</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (user.Role != "Admin")
+                                {
+                                    <div class="d-flex flex-wrap gap-1">
+
+                                        <!-- Активация -->
+                                        <a class="btn btn-sm @(user.IsActive ? "btn-outline-secondary" : "btn-success")"
+                                           asp-controller="Admin"
+                                           asp-action="ToggleActivation"
+                                           asp-route-id="@user.Id">
+                                            @(user.IsActive ? "Деактивировать" : "Активировать")
+                                        </a>
+
+                                        <!-- Блокировка -->
+                                        <a class="btn btn-sm @(user.IsBlocked ? "btn-outline-success" : "btn-danger")"
+                                           asp-controller="Admin"
+                                           asp-action="ToggleBlock"
+                                           asp-route-id="@user.Id">
+                                            @(user.IsBlocked ? "Разблокировать" : "Заблокировать")
+                                        </a>
+
+                                        <!-- Premium -->
+                                        <a class="btn btn-sm @(user.Role == "Premium" ? "btn-outline-warning" : "btn-warning")"
+                                           asp-controller="Admin"
+                                           asp-action="TogglePremium"
+                                           asp-route-id="@user.Id">
+                                            @(user.Role == "Premium" ? "Снять Premium" : "Выдать Premium")
+                                        </a>
+
+                                    </div>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>

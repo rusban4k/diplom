@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="hero-box p-4 p-md-5 mb-4 rounded shadow-sm">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <h1 class="display-5 fw-bold mb-3">Sonic Legacy</h1>
+            <p class="lead mb-4">
+                Образовательная веб-платформа с бесплатными и премиальными курсами,
+                системой аналитики пользовательской активности и защищённой комплексной архитектурой.
+            </p>
+
+            <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-primary btn-lg" asp-controller="Course" asp-action="Index">Перейти к курсам</a>
+
+                @if (User.Identity != null && !User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-outline-light btn-lg" asp-controller="Account" asp-action="Register">Начать обучение</a>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-warning btn-lg" asp-controller="Admin" asp-action="Analytics">Панель аналитики</a>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-5 mt-4 mt-lg-0">
+            <div class="info-panel p-4 rounded">
+                <h4 class="mb-3">Возможности платформы</h4>
+                <ul class="mb-0">
+                    <li>регистрация и авторизация пользователей</li>
+                    <li>доступ к бесплатным и premium-курсам</li>
+                    <li>структура обучения: курсы, модули, уроки</li>
+                    <li>административное управление контентом</li>
+                    <li>система логирования и аналитики</li>
+                    <li>разграничение прав доступа</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h3 class="card-title">Бесплатный доступ</h3>
+                <p class="card-text">
+                    Пользователи могут проходить бесплатные курсы и знакомиться
+                    с частью контента платформы без premium-подписки.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h3 class="card-title">Premium-модель</h3>
+                <p class="card-text">
+                    Премиальные пользователи получают доступ к расширенным
+                    образовательным материалам и закрытым урокам.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h3 class="card-title">Маркетинговая аналитика</h3>
+                <p class="card-text">
+                    Платформа фиксирует пользовательскую активность, что позволяет
+                    анализировать популярность курсов и вовлечённость аудитории.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-5 shadow-sm border-0 premium-box">
+    <div class="card-body p-4 text-center">
+        <h3 class="mb-3">Получите доступ к Premium-контенту</h3>
+
+        <p class="mb-4">
+            Откройте доступ к расширенным курсам, углублённым материалам и дополнительным урокам.
+        </p>
+
+        @if (!User.IsInRole("Premium"))
+        {
+            
+        }
+        else
+        {
+            <span class="badge bg-success mb-3">У вас есть Premium</span>
+        }
+
+
+            @if (!User.IsInRole("Premium"))
+            {
+                <a class="premium-cta"
+               href="https://vk.com/rusban4k"
+                   target="_blank">
+
+                    <span class="telegram-icon">📩</span>
+                    Получить Premium
+                </a>
+            }
+
+        </div>
+    </div>
+</div>
